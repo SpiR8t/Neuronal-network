@@ -1,10 +1,12 @@
 #ifndef NEURAL_NETWORK_H
 #define NEURAL_NETWORK_H
 
-typedef struct {
+#include <stddef.h>
+
+typedef struct {
 	size_t input_size;
 	size_t hidden_size;
-	size_t output_size,;
+	size_t output_size;
 
 	double *hidden_weights;
 	double *hidden_bias;
@@ -14,7 +16,7 @@ typedef struct {
 
 	double *hidden;
 	double *output;
-} NeuralNetwork
+} NeuralNetwork;
 
 NeuralNetwork *neural_network_create(size_t input_size, size_t hidden_size, size_t output_size);
 void neural_network_destroy(NeuralNetwork *neural_network);
