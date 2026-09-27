@@ -33,13 +33,4 @@ void softmax(const double *input, double *output, size_t size) {
 	}
 }
 
-int main() {
-	printf("%f\n", sigmoid(0));
-	printf("%f\n", sigmoid(10));
-	printf("%f\n", sigmoid(-10));
 
-	double output[2];
-	const double input[2] = {1,2};
-	softmax(input, output, 2);
-	printf("[%f %f]\n", output[0], output[1]);
-}
