@@ -3,6 +3,13 @@
 
 #include <stddef.h>
 
+// fake definition to avoid errors during testing
+typedef struct {
+	int a;
+} Dataset;
+//
+
+
 typedef struct {
 	size_t input_size;
 	size_t hidden_size;

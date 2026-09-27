@@ -1,6 +1,15 @@
 #include "neural_network.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
+#include <time.h>
+
+double xavier_uniform(int n_in, int n_out) {
+	double limit = sqrt(6.0 / (n_in + n_out));
+
+	double u = (double)rand() / (double)RAND_MAX;
+	return -limit + 2.0 * limit * u;
+}
 
 NeuralNetwork *neural_network_create(size_t input_size, size_t hidden_size, size_t output_size) {
 	if (input_size < 2 || hidden_size < 1 || output_size < 1) {
@@ -84,10 +93,21 @@ void neural_network_backward(NeuralNetwork *network, const double *expected) {
     return;
 }
 
+
 void neural_network_train(NeuralNetwork *network, Dataset *dataset) {
     return;
 }
 
 void neural_network_predict(NeuralNetwork *network, const double *input, double *output) {
     return;
+}
+
+int main(void)
+{
+    srand((unsigned int)time(NULL));
+
+
+    printf("%f", xavier_uniform(128, 64));
+
+    return 0;
 }
