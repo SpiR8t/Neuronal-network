@@ -27,6 +27,10 @@ NeuralNetwork *neural_network_create(size_t input_size, size_t hidden_size, size
 	if (!neural_network->hidden_weights) {
 		return NULL;
 	}
+	for (size_t i = 0; i < hidden_size*input_size, i++) {
+		neural_network->hidden_weights[i] = xavier_uniform(input_size, hidden_size);
+	}
+
 	neural_network->hidden_bias = calloc(hidden_size, sizeof(double));
 	if (!neural_network->hidden_bias) {
 		free(neural_network->hidden_weights);
@@ -37,6 +41,9 @@ NeuralNetwork *neural_network_create(size_t input_size, size_t hidden_size, size
 		free(neural_network->hidden_weights);
 		free(neural_network->hidden_bias);
 		return NULL;
+	}
+	for (size_t i = 0; i < hidden_size*input_size, i++) {
+		neural_network->output_weights[i] = xavier_uniform(hidden_size, output_size);
 	}
 	
 	neural_network->output_bias = calloc(output_size, sizeof(double));
