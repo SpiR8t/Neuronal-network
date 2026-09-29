@@ -1,4 +1,5 @@
 #include "neural_network.h"
+#include "activation.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -27,7 +28,7 @@ NeuralNetwork *neural_network_create(size_t input_size, size_t hidden_size, size
 	if (!neural_network->hidden_weights) {
 		return NULL;
 	}
-	for (size_t i = 0; i < hidden_size*input_size, i++) {
+	for (size_t i = 0; i < hidden_size*input_size; i++) {
 		neural_network->hidden_weights[i] = xavier_uniform(input_size, hidden_size);
 	}
 
@@ -42,7 +43,7 @@ NeuralNetwork *neural_network_create(size_t input_size, size_t hidden_size, size
 		free(neural_network->hidden_bias);
 		return NULL;
 	}
-	for (size_t i = 0; i < hidden_size*input_size, i++) {
+	for (size_t i = 0; i < hidden_size*input_size; i++) {
 		neural_network->output_weights[i] = xavier_uniform(hidden_size, output_size);
 	}
 	
@@ -92,7 +93,34 @@ void neural_network_destroy(NeuralNetwork *neural_network) {
 }
 
 void neural_network_forward(NeuralNetwork *network, const double *input) {
-    return;
+    size_t input_size = network->input_size;
+    size_t hidden_size = network->hidden_size;
+    size_t output_size = network->output_size;
+
+    for (size_t i = 0; i < hidden_size; i++) {
+    	double sum = network->hidden_bias[i];
+
+    	for (size_t j = 0; j < input_size; j++) {
+    		double weight = network->hidden_weights[i * input_size + j];
+
+    		sum += weight * input[j];
+    	}
+
+    	network->hidden[i] = sigmoid(sum);
+    }
+
+    for (size_t k = 0; k < output_size; k++) {
+    	double sum = network->output_bias[k];
+
+    	for (size_t i = 0; i < hidden_size; i++) {
+    		double weight = network->output_weights[k * hidden_size + i];
+
+    		sum += weight * network->hidden[i];
+    	}
+
+    	network->output[k] = sum; // we will do the softmax then
+    }
+
 
 }
 
