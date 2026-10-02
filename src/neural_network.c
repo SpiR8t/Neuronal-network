@@ -71,9 +71,6 @@ NeuralNetwork *neural_network_create(size_t input_size, size_t hidden_size, size
 		free(neural_network->hidden);
 		return NULL;
 	}
-
-	// initializing the weights ?
-	//
 	
 	return neural_network;
 
