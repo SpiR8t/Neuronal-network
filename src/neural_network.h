@@ -9,6 +9,12 @@ typedef struct {
 } Dataset;
 //
 
+typedef struct {
+    double *hidden_weights;
+    double *hidden_bias;
+    double *output_weights;
+    double *output_bias;
+} Gradient;
 
 typedef struct {
 	size_t input_size;

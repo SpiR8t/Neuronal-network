@@ -122,8 +122,10 @@ void neural_network_forward(NeuralNetwork *network, const double *input) {
 }
 
 void neural_network_backward(NeuralNetwork *network, const double *expected) {
-    return;
+    	
+	return;
 }
+
 
 
 void neural_network_train(NeuralNetwork *network, Dataset *dataset) {
