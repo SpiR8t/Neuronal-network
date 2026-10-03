@@ -121,9 +121,58 @@ void neural_network_forward(NeuralNetwork *network, const double *input) {
     softmax(network->output, network->output, network->output_size);
 }
 
-Gradient *neural_network_backward(NeuralNetwork *network, const double *expected) {
-    	
-	return;
+Gradient *neural_network_backward(NeuralNetwork *network, const double *input, const double *expected) {
+    		Gradient *gradient = gradient_create(network);
+		if (!gradient) {
+			return NULL;
+		}
+		
+		double *output_delta = calloc(network->output_size, sizeof(double));
+		double *hidden_delta = calloc(network->hidden_size, sizeof(double));
+		if (!output_delta || !hidden_delta) {
+			free(hidden_delta);
+			free(output_delta);
+			gradient_destroy(gradient);
+			return NULL;
+		}
+
+		// output delta
+		for (size_t k = 0; k < network->output_size; k++) {
+			output_delta[k] = network->output[k] - expected[k];
+		}
+
+		// output gradient
+		for (size_t k = 0; k < network->output_size; k++) {
+			gradient->output_bias[k] = output_delta[k];
+
+			for (size_t i = 0; i < network->hidden_size; i++) {
+				gradient->output_weights[k*network->hidden_size + i] = output_delta[k] * network->hidden[i];
+			}
+		}
+
+		// hidden delta
+		for (size_t i = 0; i < network->hidden_size; i++) {
+			double error = 0.0;
+
+			for (size_t k = 0; k < network->output_size; k++) {
+				error += output_delta[k] * network->output_weights[k * network->hidden_size + i];
+			}
+
+			hidden_delta[i] = error * network->hidden[i] * (1.0 - network->hidden[i]);
+		}
+
+		// hidden gradient
+		for (size_t i = 0; i < network->hidden_size; i++) {
+			gradient->hidden_bias[i] = hidden_delta[i];
+
+			for (size_t j = 0; j < network->input_size; j++) {
+				gradient->hidden_weights[i * network->input_size + j] = hidden_delta[i] * input[j];
+			}
+		}
+
+		free(output_delta);
+		free(hidden_delta);
+		return gradient;
 }
 
 
