@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11 -MMD -MP
+CFLAGS = -Wall -Wextra -std=c11 -MMD -MP -fsanitize=address
 LDFLAGS = -lm
 
 TARGET = ocr
