@@ -1,6 +1,7 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11 -MMD -MP
-LDFLAGS = -lm
+CFLAGS = -Wall -Wextra -std=c11 -MMD -MP -fsanitize=address
+LDFLAGS = -fsanitize=address
+LDLIBS = -lm
 
 TARGET = ocr
 
@@ -14,7 +15,7 @@ DEP = $(OBJ:.o=.d)
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	$(CC) $(OBJ) -o $@ $(LDFLAGS)
+	$(CC) $(OBJ) -o $@ $(LDFLAGS) $(LDLIBS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
