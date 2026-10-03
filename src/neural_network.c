@@ -121,7 +121,7 @@ void neural_network_forward(NeuralNetwork *network, const double *input) {
     softmax(network->output, network->output, network->output_size);
 }
 
-void neural_network_backward(NeuralNetwork *network, const double *expected) {
+Gradient *neural_network_backward(NeuralNetwork *network, const double *expected) {
     	
 	return;
 }
