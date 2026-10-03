@@ -134,12 +134,3 @@ void neural_network_predict(NeuralNetwork *network, const double *input, double 
     return;
 }
 
-int main(void)
-{
-    srand((unsigned int)time(NULL));
-
-
-    printf("%f", xavier_uniform(128, 64));
-
-    return 0;
-}
