@@ -1,6 +1,9 @@
 #ifndef MATRIX_H
 #define MATRIX_h
 
+#include <stddef.h>
+#include <stdlib.h>
+
 typedef struct
 {
     size_t rows;
