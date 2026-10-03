@@ -175,7 +175,7 @@ Gradient *neural_network_backward(NeuralNetwork *network, const double *input, c
 		return gradient;
 }
 
-Gradient *gradient_create(const NeuralNetwork network) {
+Gradient *gradient_create(const NeuralNetwork *network) {
 	Gradient *gradient = malloc(sizeof(Gradient));
 	if (!gradient) {
 		return NULL;
