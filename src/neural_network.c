@@ -229,6 +229,24 @@ void gradient_destroy(Gradient *gradient) {
 	free(gradient);
 }
 
+void neural_network_gradient_descent(NeuralNetwork *network, const Gradient *gradient, double learning_rate) {
+	for (size_t i = 0; i < network->hidden_size * network->input_size; i++) {
+		network->hidden_weights[i] -= learning_rate * gradient->hidden_weights[i];
+	}
+
+	for (size_t i = 0; i < network->hidden_size; i++) {
+		network->hidden_bias[i] -= learning_rate * gradient->hidden_bias[i];
+	}
+	
+	for (size_t i = 0; i < network->output_size * network->hidden_size; i++) {
+		network->output_weights[i] -= learning_rate * gradient->output_weights[i];
+	}
+	
+	for (size_t i = 0; i < network->output_size; i++) {
+		network->output_bias[i] -= learning_rate * gradient->output_bias[i];
+	}
+}
+
 void neural_network_train(NeuralNetwork *network, Dataset *dataset) {
     return;
 }
