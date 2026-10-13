@@ -2,12 +2,8 @@
 #define NEURAL_NETWORK_H
 
 #include <stddef.h>
-
-// fake definition to avoid errors during testing
-typedef struct {
-	int a;
-} Dataset;
-//
+#include "dataset.h"
+#include "loss.h"
 
 typedef struct {
     double *hidden_weights;
@@ -40,7 +36,7 @@ void neural_network_destroy(NeuralNetwork *neural_network);
 
 void neural_network_forward(NeuralNetwork *network, const double *input);
 Gradient *neural_network_backward(NeuralNetwork *network, const double *input, const double *expected);
-void neural_network_train(NeuralNetwork *network, Dataset *dataset);
+void neural_network_train(NeuralNetwork *network, Dataset *dataset, size_t epochs, double learning_rate);
 
 void neural_network_predict(NeuralNetwork *network, const double *input, double *output);
 

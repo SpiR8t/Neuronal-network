@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <time.h>
+#include "dataset.h"
 
 double xavier_uniform(int n_in, int n_out) {
 	double limit = sqrt(6.0 / (n_in + n_out));
@@ -43,7 +44,7 @@ NeuralNetwork *neural_network_create(size_t input_size, size_t hidden_size, size
 		free(neural_network->hidden_bias);
 		return NULL;
 	}
-	for (size_t i = 0; i < hidden_size*input_size; i++) {
+	for (size_t i = 0; i < hidden_size*output_size; i++) {
 		neural_network->output_weights[i] = xavier_uniform(hidden_size, output_size);
 	}
 	
@@ -247,8 +248,32 @@ void neural_network_gradient_descent(NeuralNetwork *network, const Gradient *gra
 	}
 }
 
-void neural_network_train(NeuralNetwork *network, Dataset *dataset) {
-    return;
+void neural_network_train(NeuralNetwork *network, Dataset *dataset, size_t epochs, double learning_rate) {
+	if (!network || !dataset || dataset->size == 0) {
+		return;
+	}
+
+	for (size_t epoch = 0; epoch < epochs; epoch++) {
+		double total_loss = 0.0;
+
+		for (size_t i = 0; i < dataset->size; i++) {
+			TrainingExample *example = &dataset->examples[i];
+
+			neural_network_forward(network, example->input);
+			total_loss += cross_entropy(example->expected, network->output, network->output_size);
+
+			Gradient *gradient = neural_network_backward(network, example->input, example->expected);
+
+			if (!gradient) {
+				return;
+			}
+
+			neural_network_gradient_descent(network, gradient, learning_rate);
+
+			gradient_destroy(gradient);
+		}
+		printf("Epoch %zu/%zu - loss: %.6f\n", epoch+1, epochs, total_loss / (double)dataset->size);
+	}
 }
 
 void neural_network_predict(NeuralNetwork *network, const double *input, double *output) {

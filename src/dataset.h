@@ -1,3 +1,6 @@
+#ifndef DATASET_H
+#define DATASET_H
+
 typedef struct
 {
     double *input;
@@ -11,3 +14,5 @@ typedef struct
     size_t input_size;
     size_t output_size;
 } Dataset;
+
+#endif
