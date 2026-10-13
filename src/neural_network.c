@@ -44,7 +44,7 @@ NeuralNetwork *neural_network_create(size_t input_size, size_t hidden_size, size
 		free(neural_network->hidden_bias);
 		return NULL;
 	}
-	for (size_t i = 0; i < hidden_size*input_size; i++) {
+	for (size_t i = 0; i < hidden_size*output_size; i++) {
 		neural_network->output_weights[i] = xavier_uniform(hidden_size, output_size);
 	}
 	
@@ -260,7 +260,6 @@ void neural_network_train(NeuralNetwork *network, Dataset *dataset, size_t epoch
 			TrainingExample *example = &dataset->examples[i];
 
 			neural_network_forward(network, example->input);
-
 			total_loss += cross_entropy(example->expected, network->output, network->output_size);
 
 			Gradient *gradient = neural_network_backward(network, example->input, example->expected);

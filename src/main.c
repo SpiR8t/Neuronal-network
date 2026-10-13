@@ -7,17 +7,17 @@ int main(void) {
 
 	const size_t input_size = 2;
 	const size_t hidden_size = 4;
-	const size_t output_size = 1;
+	const size_t output_size = 2;
 
 	double input_0[] = {1.0, 0.0};
 	double input_1[] = {0.0, 0.0};
 	double input_2[] = {0.0, 1.0};
 	double input_3[] = {1.0, 1.0};
 
-	double expected_0[] = {1.0};
-	double expected_1[] = {0.0};
-	double expected_2[] = {1.0};
-	double expected_3[] = {0.0};
+	double expected_0[] = {0.0, 1.0};
+	double expected_1[] = {1.0, 0.0};
+	double expected_2[] = {0.0, 1.0};
+	double expected_3[] = {1.0, 0.0};
 
 	TrainingExample examples[] = {
 		{input_0, expected_0},
@@ -46,5 +46,5 @@ int main(void) {
 	neural_network_train(network, &dataset, 2000, 0.1);
 
 	printf("\nPrediction after training: to dev\n");
-
+	neural_network_destroy(network);
 }

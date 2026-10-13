@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c11 -MMD -MP -fsanitize=address
+CFLAGS = -Wall -Wextra -std=c11 -MMD -MP -fsanitize=address -g
 LDFLAGS = -fsanitize=address
 LDLIBS = -lm
 
