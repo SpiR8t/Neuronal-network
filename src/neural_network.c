@@ -224,6 +224,16 @@ void neural_network_train(NeuralNetwork *network, Dataset *dataset, size_t epoch
 }
 
 void neural_network_predict(NeuralNetwork *network, const double *input, double *output) {
-    return;
+	neural_network_forward(network, input);
+	for (size_t i = 0; i < network->output_size; i++) {
+		output[i] = network->output[i];
+	}
 }
 
+int translate_output_to_xor(double *output) {
+	if (output[0] >= 0.5) {
+		return 0;
+	} else {
+		return 1;
+	}
+}
