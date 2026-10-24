@@ -1,7 +1,6 @@
 #ifndef GRADIENT_H
 #define GRADIENT_H
 
-#include "neural_network.h"
 
 typedef struct {
     double *hidden_weights;
@@ -9,6 +8,7 @@ typedef struct {
     double *output_weights;
     double *output_bias;
 } Gradient;
+#include "neural_network.h"
 
 
 #endif

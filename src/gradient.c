@@ -1,5 +1,5 @@
 #include "gradient.h"
-#include <stdlib.>
+#include <stdlib.h>
 
 Gradient *gradient_create(const NeuralNetwork *network) {
         Gradient *gradient = malloc(sizeof(Gradient));
