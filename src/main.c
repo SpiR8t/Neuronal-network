@@ -45,6 +45,19 @@ int main(void) {
 
 	neural_network_train(network, &dataset, 2000, 0.1);
 
-	printf("\nPrediction after training: to dev\n");
+	printf("\nPrediction after training:\n");
+	double output[2] = {0.0, 0.0};
+
+	neural_network_predict(network, input_0, output);
+	printf("%.1f xor %.1f = %d\n", input_0[0], input_0[1], translate_output_to_xor(output));
+
+	neural_network_predict(network, input_1, output);
+	printf("%.1f xor %.1f = %d\n", input_1[0], input_1[1], translate_output_to_xor(output));
+
+	neural_network_predict(network, input_2, output);
+	printf("%.1f xor %.1f = %d\n", input_2[0], input_2[1], translate_output_to_xor(output));
+
+	neural_network_predict(network, input_3, output);
+	printf("%.1f xor %.1f = %d \n", input_3[0], input_3[1], translate_output_to_xor(output));
 	neural_network_destroy(network);
 }
